@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Memory game</title>
+        <link rel="stylesheet" type="text/css" href="final.css"></link>
+    </head>
+    <body>
+        <div class="start-page" id="startDiv">
+            <div class="title">Welcome to memory game</div>
+            <div class="button"><input type="button" value="Play" id="play"></div>
+        </div>
+
+        <script src="final.js"></script>
+        <script>
+          window.onload = function() {
+              Game.start("startDiv", "play");
+          }
+        </script>
+    </body>
+</html>
