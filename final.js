@@ -7,8 +7,7 @@ var Game = (function () {
     var level = 1;
     var numberArray = [];
     var gameDiv;
-    var quitButton;
-    var levelDiv;
+    var toolbarDiv;
     var startDiv;
     var GAME_DIV_WIDTH = 555;
     var GAME_DIV_HEIGHT = 555;
@@ -42,8 +41,10 @@ var Game = (function () {
         creates all the elements for the DOM which represent the game
         @return: the main div for the game (gameDiv)
     */
-    function createGameDiv() {      
-        quitButton = document.createElement("input");
+    function createGameDiv() {
+        toolbarDiv = document.createElement("div");
+        toolbarDiv.setAttribute("class", "toolbar");
+        var quitButton = document.createElement("input");
         quitButton.setAttribute("type", "button");
         quitButton.setAttribute("class", "quit-button");
         quitButton.setAttribute("value", "Quit");
@@ -52,13 +53,18 @@ var Game = (function () {
         div.setAttribute("class", "game");
         div.onclick = checkGameState;
         
-        levelDiv = document.createElement("div");
+        var levelDiv = document.createElement("div");
         levelDiv.setAttribute("class", "level");
         levelDiv.innerHTML = "Level: " + level;
         
-        document.body.appendChild(levelDiv);
+        var buttonDiv = document.createElement("div");
+        buttonDiv.setAttribute("class", "quit-button-div");
+        buttonDiv.appendChild(quitButton);
+        
+        toolbarDiv.appendChild(levelDiv);
+        toolbarDiv.appendChild(buttonDiv);
+        document.body.appendChild(toolbarDiv);
         document.body.appendChild(div);
-        document.body.appendChild(quitButton);
         
         quitButton.onclick = function() {
             level = 1;
@@ -75,8 +81,7 @@ var Game = (function () {
     */
     function removeCurrentLevelElementsFromPage() {
         document.body.removeChild(gameDiv);
-        document.body.removeChild(quitButton);
-        document.body.removeChild(levelDiv);        
+        document.body.removeChild(toolbarDiv);        
     }
     
     /*

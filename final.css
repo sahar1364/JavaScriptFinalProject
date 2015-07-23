@@ -1,27 +1,51 @@
+body {
+    background-color: #ddd;
+    margin: 0px;   
+}
+
 .title {
-  border-left: 45%;
-  border-top: 45%;
-  font-size: 15px;
-  font-family: fantasy;
+  margin-top: 30px;
+  font-size: 40px;
+  font-family: cursive;
+  font-weight: bold;
+  text-align: center;
+  color: darkgreen;
 }
 
-.button {
-    
+.instructions {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 50px;
+  font-size: 25px;
+  font-family: monospace;
+  font-weight: bold; 
+  text-align: center;
 }
 
-.quit-button {
+.start-button-div {
+    margin-top: 70px;
+    text-align: center;  
 }
 
 .start-page {
     display: block;
+    background-color: lightskyblue;
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
 
 .game {
     width: 600px;
     height: 600px;
-    background-color: blanchedalmond;
-    margin: 10%;
+    top: 25px;
     position: relative;
+    display: block;
+    background-color: #aaa;
+    border-radius: 20px;
+    outline: none;
+    border: 1px solid #888;
+    left: 27%;
 }
 
 .game-section {
@@ -34,20 +58,24 @@
     position: absolute;
     text-align: center;
     font-size: 20px;
+    line-height: 40px;
+    font-family: arial;
+    font-weight: bold;
+    box-shadow: 1px 1px #666;
+    cursor: pointer;
+}
+
+.hidden:hover {
+    opacity: 1;
 }
 
 .hidden {
-    background-color:black;
+    background-color: black;
+    opacity: 0.75;
 }
 
 .visible {
-    background-color:aquamarine;
-}
-
-.level {
-    font-size: 20px;
-    left:20px;
-    top: 20px;
+    background-color: #0f6;
 }
 
 .right-guess {
@@ -55,5 +83,77 @@
 }
 
 .wrong-guess {
-    background-color: crimson;   
+    background-color: #f32;   
+}
+
+.start-button {
+   border-top: 1px solid #19394d;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#0c1114), to(#65a9d7));
+   background: -webkit-linear-gradient(top, #0c1114, #65a9d7);
+   background: -moz-linear-gradient(top, #0c1114, #65a9d7);
+   background: -ms-linear-gradient(top, #0c1114, #65a9d7);
+   background: -o-linear-gradient(top, #0c1114, #65a9d7);
+   padding: 20px 40px;
+   -webkit-border-radius: 17px;
+   -moz-border-radius: 17px;
+   border-radius: 17px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: #dbd81b;
+   font-size: 23px;
+   font-family: Georgia, Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   cursor: pointer; 
+   text-align: center;
+}
+
+.quit-button {
+   border-top: 1px solid #19394d;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#0c1114), to(#65a9d7));
+   background: -webkit-linear-gradient(top, #0c1114, #65a9d7);
+   background: -moz-linear-gradient(top, #0c1114, #65a9d7);
+   background: -ms-linear-gradient(top, #0c1114, #65a9d7);
+   background: -o-linear-gradient(top, #0c1114, #65a9d7);
+   padding: 5px 10px;
+   -webkit-border-radius: 13px;
+   -moz-border-radius: 13px;
+   border-radius: 13px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: #dbd81b;
+   font-size: 16px;
+   font-family: Georgia, Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   text-align: right;
+    cursor: pointer;
+}
+
+.toolbar {
+    width:100%;
+    height: 75px;
+    line-height: 75px;
+    background-color: lightskyblue;
+    border: 0px solid deepskyblue;
+    border-bottom-width: 1px;
+}
+
+.level {
+    font-size: 35px;
+    font-family: verdana;
+    color: crimson;
+    left: 10px;
+    position: absolute;
+}
+
+.quit-button-div {
+  right:10px;
+  position: absolute;
 }
