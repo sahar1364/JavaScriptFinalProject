@@ -63,6 +63,8 @@ body {
     font-weight: bold;
     box-shadow: 1px 1px #666;
     cursor: pointer;
+    outline: none;
+    user-select: none;
 }
 
 .hidden:hover {
@@ -72,10 +74,12 @@ body {
 .hidden {
     background-color: black;
     opacity: 0.75;
+    font-size: 0px;
 }
 
 .visible {
     background-color: #0f6;
+    font-size: 100%;
 }
 
 .right-guess {

@@ -11,6 +11,7 @@ var Game = (function () {
     var startDiv;
     var GAME_DIV_WIDTH = 555;
     var GAME_DIV_HEIGHT = 555;
+    var aCircleWasClicked = false;
     
     function construct(div1) {
         startDiv = div1;
@@ -89,28 +90,44 @@ var Game = (function () {
         and goes to next level if the game is finished
     */
     function checkGameState() {
-        var isGameFinished = true;
-        var orderIsCorrect = false;
-        for (var i = 0; i < numberArray.length; i++) {
-            if (!numberArray[i].getIsClicked()) {
-                isGameFinished = false;
-            }
-            else if (numberArray[i].getIsClicked() && isOutOfOrder(i)) {
-                numberArray[i].gotItWrong(numberArray[i].getDiv());   
-            }
-        }
-        if (isGameFinished) {
-            setTimeout(goToNextLevel, 3000);
-        }
-        //checks if the iVar th element in the numberArray has been clicked out of order
-        function isOutOfOrder(iVar) {
-            for (var j = 0; j < iVar; j++) {
-                if (!numberArray[j].getIsClicked()) {
-                    return true;
+        if (aCircleWasClicked) {
+            var isGameFinished = true;
+            var orderIsCorrect = false;
+            for (var i = 0; i < numberArray.length; i++) {
+                if (!numberArray[i].getIsClicked()) {
+                    isGameFinished = false;
+                }
+                else if (numberArray[i].getIsClicked() && isOutOfOrder(i)) {
+                    numberArray[i].gotItWrong(numberArray[i].getDiv());   
                 }
             }
-            return false;
+            if (isGameFinished) {
+                disableOnClickForNumbers();
+                setTimeout(goToNextLevel, 3000);
+            }
+            //checks if the iVar th element in the numberArray has been clicked out of order
+            function isOutOfOrder(iVar) {
+                for (var j = 0; j < iVar; j++) {
+                    if (!numberArray[j].getIsClicked()) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            aCircleWasClicked = false;
         }
+    }
+    
+    function disableOnClickForNumbers() {
+        for (var i = 0; i < numberArray.length; i++) {
+            numberArray[i].getDiv().onclick = null;
+        }    
+    }
+    
+    function enableOnClickForNumbers() {
+        for (var i = 0; i < numberArray.length; i++) {
+            numberArray[i].setOnClickFunction();
+        } 
     }
     
     /*
@@ -140,15 +157,17 @@ var Game = (function () {
         Makes all the numbers visible on the page
     */
     function makeAllVisible() {
+        disableOnClickForNumbers();
         for (var i = 0; i < numberArray.length; i++) {
             numberArray[i].setVisible(numberArray[i].getDiv());
-        }
+        }     
     }
     
     /*
         Hides all the numbers from the user on the page
     */
     function makeAllHidden() {
+         enableOnClickForNumbers();
          for (var i = 0; i < numberArray.length; i++) {
             numberArray[i].setHidden(numberArray[i].getDiv());
         }       
@@ -171,6 +190,9 @@ var Game = (function () {
         this.getIsClicked = function() {
             return isClicked;   
         };
+        this.getPosition = function () {
+            return {x, y};   
+        }
         this.setPosition = function(xPos, yPos) {
             if (!isNaN(xPos) && !isNaN(yPos) && xPos <= GAME_DIV_WIDTH && yPos <= GAME_DIV_HEIGHT) {
                 x = xPos;
@@ -186,7 +208,14 @@ var Game = (function () {
         };
         this.getDiv = function() {
             return div;
-        }
+        };
+        this.setOnClickFunction = function() {
+            div.onclick = function(e) {
+                div.setAttribute("class","number visible");
+                isClicked = true;
+                aCircleWasClicked = true;
+            };    
+        };
         function createDiv() {
             div = document.createElement("div");
             div.setAttribute("class", "number hidden");
@@ -194,10 +223,6 @@ var Game = (function () {
             div.style.top = y + "px";
             div.innerHTML = value;
             gameDiv.appendChild(div);
-            div.onclick = function() {
-                div.setAttribute("class","number visible");
-                isClicked = true;
-            };
         }
     }
     
@@ -224,6 +249,20 @@ var Game = (function () {
     function generatePosition() {
         var x = Math.floor(Math.random()*GAME_DIV_WIDTH);
         var y = Math.floor(Math.random()*GAME_DIV_HEIGHT);
+        //make sure the circles don't overlap
+        while (positionOverLapWithPreviousNumbers()) {
+            x = Math.floor(Math.random()*GAME_DIV_WIDTH);
+            y = Math.floor(Math.random()*GAME_DIV_HEIGHT);           
+        }
+        function positionOverLapWithPreviousNumbers() {
+            for (var i=0; i < numberArray.length; i++) {
+                if (-40 < numberArray[i].getPosition.x - x || numberArray[i].getPosition.x - x < 40 ||
+                   -40 < numberArray[i].getPosition.y - x || numberArray[i].getPosition.y - x < 40) {
+                    return true;   
+                }
+            }
+            return false;
+        }
         return {x, y};
     }
     /* Takes the user to the next level */
